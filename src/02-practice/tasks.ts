@@ -1,6 +1,60 @@
 import { addItem, run } from './../03-utils';
-import { first, last, elementAt, min, max, toArray, find, findIndex, single, filter, sample, tap, sampleTime, map, audit, auditTime, throttle, throttleTime, debounce, debounceTime, skip, skipLast, skipUntil, skipWhile, take, pluck, takeLast, takeUntil, startWith, takeWhile, distinct, reduce, distinctUntilChanged, distinctUntilKeyChanged, switchMap, withLatestFrom, buffer } from 'rxjs/operators';
-import { from, fromEvent, fromEventPattern, generate, interval, of, pairs, range, timer } from 'rxjs';
+import {
+    first,
+    last,
+    elementAt,
+    min,
+    max,
+    toArray,
+    find,
+    findIndex,
+    single,
+    filter,
+    sample,
+    tap,
+    sampleTime,
+    map,
+    audit,
+    auditTime,
+    throttle,
+    throttleTime,
+    debounce,
+    debounceTime,
+    skip,
+    skipLast,
+    skipUntil,
+    skipWhile,
+    take,
+    pluck,
+    takeLast,
+    takeUntil,
+    startWith,
+    takeWhile,
+    distinct,
+    reduce,
+    distinctUntilChanged,
+    distinctUntilKeyChanged,
+    switchMap,
+    withLatestFrom,
+    buffer,
+    concatMap,
+    mergeMap,
+    delay,
+} from 'rxjs/operators';
+import {
+    combineLatest, concat,
+    forkJoin,
+    from,
+    fromEvent,
+    fromEventPattern,
+    generate,
+    iif,
+    interval, merge,
+    of,
+    pairs,
+    range,
+    timer, zip
+} from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
 // Task 1. skip()
@@ -361,6 +415,98 @@ import { ajax } from 'rxjs/ajax';
     //     map(({ target }: MouseEvent) => (target as HTMLInputElement).value),
     // );
     
+    // run(stream$);
+})();
+
+//Homework
+
+// Task 21. IIF
+// Дано 2 потока. 1 поток - пользователи с доступом. 2 поток - пользователи без доступа
+// Модифицируйте эти потоки так, чтобы запрашивать одни данные, если у пользователя есть доступи и другие, если у пользователя нет доступа
+// Получите результат запроса
+(function task21() {
+    // const users = [
+    //     {
+    //         id: '123',
+    //         hasAccess: true,
+    //     },
+    //     {
+    //         id: '456',
+    //         hasAccess: true,
+    //     },
+    //     {
+    //         id: '789',
+    //          hasAccess: false,
+    //     },
+    //     {
+    //         id: '101',
+    //         hasAccess: false,
+    //     }
+    // ];
+    // const accessRequest$ = ajax('https://jsonplaceholder.typicode.com/todos/1');
+    // const noAccessRequest$ = ajax('https://jsonplaceholder.typicode.com/posts/1');
+    // const stream$ = from(users).pipe(
+    //     concatMap(({ hasAccess }) =>  iif(() => hasAccess, accessRequest$, noAccessRequest$)),
+    //     pluck('response'),
+    // );
+
+    // run(stream$);
+})();
+
+
+// Task 22. find
+// Дано поток пользователей желающих зарегестрироваться на веббинар Виталия, однако к-во мест ограничено
+// На веббинар может попасть только человек уровня senior
+// Просмотрите все заявки и после того, как встретится первый разработчик уровня senior - закройте регистрацию на веббинар (поток)
+// и выведите его Имя
+(function task22() {
+    // const searchTitle = 'Senior';
+    // const candidates$ = from([
+    //     {
+    //         title: 'Junior',
+    //         name: 'Andrii',
+    //     },
+    //     {
+    //         title: 'Junior',
+    //         name: 'Anna',
+    //     },
+    //     {
+    //         title: 'Senior',
+    //         name: 'Gorge',
+    //     },
+    //     {
+    //         title: 'Middle',
+    //         name: 'Greg',
+    //     },
+    // ]);
+    //
+    //
+    // const stream$ = candidates$.pipe(
+    //     find(({ title }) => title === searchTitle),
+    //     pluck('name'),
+    // );
+    //
+    // run(stream$);
+})();
+
+// Task 23. debounceTime()
+// Реализуйте type ahead поиск. Пользователь печатает символ и если в течении 300 мс не было новых значений - выполнить запрос на сервер.
+// Если значение в инпуте было изменено и востановлено в течении 300 мс - запрос отправлять не нужно
+// Функционал type ahead активен, до нажатия по кнопке 'runBtn'.
+(function task20() {
+    // const button = document.getElementById('runBtn');
+    // const input = document.getElementById('text-field');
+    // const keyUp$ = fromEvent(input, 'keyup');
+    // const click$ = fromEvent(button, 'click');
+    // const request$ = ajax(`https://api.github.com/users?per_page=5`)
+    // const stream$ = keyUp$.pipe(
+    //     debounceTime(300),
+    //     map(({ target }: KeyboardEvent) => (target as HTMLInputElement).value),
+    //     distinctUntilChanged(),
+    //     switchMap(() => request$),
+    //     takeUntil(click$),
+    // );
+    //
     // run(stream$);
 })();
 
